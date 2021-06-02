@@ -39,7 +39,10 @@ public class gen_reciept extends javax.swing.JInternalFrame {
    
    private  long l;
    
+  //Pending  Update
    private  int p, del=2;
+
+
    
    
     public gen_reciept() {
