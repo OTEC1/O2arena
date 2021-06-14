@@ -7,7 +7,11 @@ package Ui_02arena;
 
 import DB_connection.Session;
 import java.awt.Color;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JTextPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -68,6 +74,8 @@ public class gen_reciept extends javax.swing.JInternalFrame {
         
     }
 
+
+  
     
     
             
@@ -120,7 +128,7 @@ public class gen_reciept extends javax.swing.JInternalFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 520, 99, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, 99, -1));
 
         jButton3.setText("Queue ");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -129,7 +137,7 @@ public class gen_reciept extends javax.swing.JInternalFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, 100, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, 100, -1));
 
         jButton4.setText("Reset");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -138,7 +146,7 @@ public class gen_reciept extends javax.swing.JInternalFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 94, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 94, -1));
 
         quantity.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -221,15 +229,15 @@ public class gen_reciept extends javax.swing.JInternalFrame {
                 deliveryActionPerformed(evt);
             }
         });
-        getContentPane().add(delivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 230, -1));
+        getContentPane().add(delivery, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 300, -1));
         getContentPane().add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 130, 20));
 
         pane.setEditable(false);
         jScrollPane2.setViewportView(pane);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 260, 470));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, 250, 470));
 
-        drinks_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grills  list \t\t", "CatFish Barbeque     with  <br/>Potatoes & Salad       #3000", "CatFish Peppersoup  with <br/>Potatoes & Salad      #3000", "Croaker Fish   with Plantain <br/> & salad & Chips     #4000", "Peppered Snails    with<br/>    Fried Plantain               #2000", "Fried Pepper drum stick & <br/>Fried Plantain sauce #2000", "Grilled Chicken with Chips<br/> Potato & salad           #2000", "Chicken Pepper soup                                                        #1500", "Grilled Titus with Roasted Plantain                                 #2500", "Indomie with 2 fried Eggs                                                  #1000", "Indomie  with Turkey or Chicken                                      #1500", "Shawama   fully loaded                                                      #1000", "Spagetti and Chicken                                                         #2000", "Nkowbi                                                                                  #1000", "Gizzard                                                                                   #1000\t", "Asun                                                                                       #500", "Assorted Meat                                                                      #500 \t" }));
+        drinks_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grills  list \t\t", "CatFish Barbeque     with  <br/>Potatoes & Salad       #3000", "CatFish Peppersoup  with <br/>Potatoes & Salad      #3000", "Croaker Fish   with Plantain <br/> & salad & Chips     #4000", "Peppered Snails    with<br/>    Fried Plantain               #2000", "Fried Pepper drum stick & <br/>Fried Plantain sauce #2000", "Grilled Chicken with Chips<br/> Potato & salad           #2000", "Chicken Pepper soup                                                        #1500", "Grilled Titus with Roasted Plantain                                 #2500", "Indomie with 2 fried Eggs                                                  #1000", "Indomie  with Turkey or Chicken                                      #1500", "Shawama   fully loaded                                                      #1000", "Spagetti and Chicken                                                         #2000", "Nkowbi                                                                                  #1000", "Gizzard                                                                                   #1000", "Asun                                                                                       #500", "Assorted Meat                                                                      #500" }));
         drinks_list.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 drinks_listActionPerformed(evt);
@@ -355,57 +363,48 @@ public class gen_reciept extends javax.swing.JInternalFrame {
          else
              if(phone.getText().trim().length()<=0 )
             new Container().message("Pls enter client Phone no:");
-          else{
-         
-              
-         
-                          
-              try {
-                  
-                  
-//                    if(del!=2){
-//                        int pos=deliver.indexOf("#");
-//                        String pos1 = String.valueOf(pos).substring(p+1);
-//                         Sub_total.setText(String.valueOf(Integer.parseInt(Sub_total.getText())+Integer.parseInt(pos1.trim())));
-//                         builder.append("<h5 style=\"  text-align:left; color:black;  margin-top:10px;   \">Order: ".concat(deliver).trim().concat("</h5>"));
-//                   }
-                           
-                  builder.append("<h3 style=\"  text-align:left; color:black;  margin-top:10px;   \">Total: ".concat(Sub_total.getText()).trim().concat("</h3>"));
-                   builder.append("<h5 style=\"  text-align:left; color:black;  margin-top:10px;   \">ID: ".concat(eid).trim().concat("</h5>"));
-                  
-          
-                  
-                  pane_add_up(builder);
-                  update_db(Sign_in_user.getText());
-                  
-                    //EditorPanePrinter editorPanePrinter = new EditorPanePrinter(pane, new Paper(), new Insets(18,0,0,18));
-                   //HashPrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
-                  //attr.add(new MediaPrintableArea(0f, 0f, pane.getWidth()/72f, pane.getHeight()/72f, MediaPrintableArea.INCH));       
-                  //PrinterJob job = PrinterJob.getPrinterJob();    
-                 //job.setPrintService(ps);
-                 //job.setPrintable(this);
-                //job.setJobName(jobName);
-                
+          else{     
+              try {  
+                   
+                   if(!delivery.getSelectedItem().equals("Delivery Section"))
+                       format(delivery);
+                   else
+                           builder.append("<h3 style=\"  text-align:left; color:black;  margin-top:5px;   \">Total: ".concat(Sub_total.getText()).trim().concat("</h3>"));  
+            
+                       
+                    
+                    builder.append("<h5 style=\"  text-align:left; color:black;  margin-top:5px;   \">ID :::: ".concat(eid).trim().concat("</h5>"));
+
+                    pane_add_up(builder);
+                    update_db(Sign_in_user.getText());
+                 
                 
                     StyledDocument doc2 = (StyledDocument) pane.getDocument();
                     Style style2 = doc2.addStyle("StyleName", null);
-                    StyleConstants.setIcon(style2, new javax.swing.ImageIcon(getClass().getResource("/resources/template1.png")));
+                    StyleConstants.setIcon(style2, new javax.swing.ImageIcon(getClass().getResource("/resources/temp.png")));
                     doc2.insertString(doc2.getLength(), "invisible text", style2);
-                    
-                  
-                  boolean bool =pane.print();
-                  
-                  if(bool){
-                      new Container().message("Printing Done");
-                      update_user_phone(phone.getText(),cart);
-                      clear();   cart="";
-                      del=1;
-                  }
-                  else
-                      new Container().message("Error Occured");
-              } catch (PrinterException | BadLocationException ex) {
-                  Logger.getLogger(gen_reciept.class.getName()).log(Level.SEVERE, null, ex);
-              }
+                   
+                    PrinterJob job = PrinterJob.getPrinterJob();
+                    PageFormat pf = job.defaultPage();
+                    Paper paper =  new Paper();
+                    double margins =  0;
+                     paper.setImageableArea(margins, margins, paper.getWidth() -  margins * 2, paper.getHeight());
+                     pf.setPaper(paper);
+
+                     job.setPrintable(new MyPrintable(pane), pf);
+                     if(job.printDialog()){
+                         job.print();
+                        new Container().message("Printing Done");
+                        update_user_phone(phone.getText(),cart);
+                        clear();   cart="";  del=1;  RESTORE();     
+                    }
+                     else{
+                        new Container().message("Error Occured");
+                        RESTORE();   CANCEL_ORDER_REPORT_ID(cart);  cart="";  del=1;   clear();
+                     }
+                } catch (PrinterException | BadLocationException ex) {
+                    Logger.getLogger(gen_reciept.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     
   
                 
@@ -503,7 +502,7 @@ public class gen_reciept extends javax.swing.JInternalFrame {
                   pane.setContentType("text/html");
                   pane.setText("<html>"
                         +"<div style=\"margin:0px;  padding:0px; \"   >"  
-                        + "  <h3  style=\"  text-align:left; color:black;  margin-top:-20px;  \"  ><b>YOUR RECEIPT COPY</b> </h3>  "
+                        + "  <h3  style=\"  text-align:left; color:black;  margin-top:-20px;  \"  ><b>YOUR_RECEIPT_COPY</b> </h3>  "
                          +"  <h3 style=\"  text-align:left; color:black;  margin-top:-20px;   \"><b>Date: "+date.getText()+"</b></h3>"
                         + " <div>"
 
@@ -662,7 +661,7 @@ public class gen_reciept extends javax.swing.JInternalFrame {
 
      private void update_user_phone(String text, String cart) {
          
-                Connection con = new DB_connection.ConnectDb().getConnection();
+       Connection con = new DB_connection.ConnectDb().getConnection();
        try {
            PreparedStatement ps = con.prepareStatement("update   item_sold  set phone='"+text+"' where carts like  '%"+cart+"%' ");
            ps.execute();
@@ -672,7 +671,61 @@ public class gen_reciept extends javax.swing.JInternalFrame {
        }
         
     }
+     
+     
+     
+         private void CANCEL_ORDER_REPORT_ID(String cart) {
+         Connection con = new DB_connection.ConnectDb().getConnection();
+         
+           try {
+           PreparedStatement ps = con.prepareStatement("update   item_sold  set   sub_total='canceled'  where carts like  '%"+cart+"%' ");
+           ps.execute();
+       }catch(SQLException ex)
+       {
+           System.out.println(ex);
+       }
+             
+          }
+
+     
+     
+     
+     
+     
+    private void format(JComboBox<String> delivery) {  
+              int q =Integer.parseInt(Sub_total.getText());
+              int      p=delivery.getSelectedItem().toString().indexOf("#");
+              String   price = String.valueOf(delivery.getSelectedItem()).substring(p+1);
+              int      l=q+Integer.parseInt(price.trim());  
+              
+              builder.append("<h3 style=\"  text-align:left; color:black;  margin-top:10px;   \">Delivery:::  ".concat(price).concat("</h3>"));  
+              builder.append("<h3 style=\"  text-align:left; color:black;   margin-top:10px;   \">Total:::  ".concat(String.valueOf(l)).concat("</h3>"));  
+              Sub_total.setText(String.valueOf(l));
+              }
+
         
+        private void RESTORE() {
+
+        delivery.setModel(new DefaultComboBoxModel<>(new  String []{"Delivery Section","Delivery within Egbe <br/> /liasu     #700","Delivery within Agodo                        #500"}));
+        drinks_list.setModel(new DefaultComboBoxModel<>(new  String []{"Grills  list", 		
+                                                                                                                                            "CatFish Barbeque     with  <br/>Potatoes & Salad       #3000",
+                                                                                                                                            "CatFish Peppersoup  with <br/>Potatoes & Salad      #3000",
+                                                                                                                                            "Croaker Fish   with Plantain <br/> & salad & Chips     #4000",
+                                                                                                                                            "Peppered Snails    with<br/>    Fried Plantain               #2000",
+                                                                                                                                            "Fried Pepper drum stick & <br/>Fried Plantain sauce #2000",
+                                                                                                                                            "Grilled Chicken with Chips<br/> Potato & salad           #2000",
+                                                                                                                                            "Chicken Pepper soup                                                        #1500",
+                                                                                                                                            "Grilled Titus with Roasted Plantain                                 #2500",
+                                                                                                                                            "Indomie with 2 fried Eggs                                                  #1000",
+                                                                                                                                            "Indomie  with Turkey or Chicken                                      #1500",
+                                                                                                                                            "Shawama   fully loaded                                                      #1000",
+                                                                                                                                            "Spagetti and Chicken                                                         #2000",
+                                                                                                                                            "Nkowbi                                                                                  #1000",
+                                                                                                                                            "Gizzard                                                                                   #1000",
+                                                                                                                                            "Asun                                                                                       #500",
+                                                                                                                                            "Assorted Meat                                                                      #500" }));
+        
+    }
     
     
     
@@ -739,7 +792,7 @@ public class gen_reciept extends javax.swing.JInternalFrame {
     
     
     
-    //                    StyledDocument    style1 = (StyledDocument) pane.getDocument();
+//                    StyledDocument    style1 = (StyledDocument) pane.getDocument();
 //                    Style     style2=style1.addStyle("StyleName", null);
 //                      StyleConstants.setIcon(style2,new javax.swing.ImageIcon(getClass().getResource("/resources/template.png")));
 //                      
@@ -753,10 +806,31 @@ public class gen_reciept extends javax.swing.JInternalFrame {
 //                     
 //                }
 
-   
+     
+                                         
+//                    if(del!=2){
+//                        int pos=deliver.indexOf("#");
+//                        String pos1 = String.valueOf(pos).substring(p+1);
+//                         Sub_total.setText(String.valueOf(Integer.parseInt(Sub_total.getText())+Integer.parseInt(pos1.trim())));
+//                         builder.append("<h5 style=\"  text-align:left; color:black;  margin-top:10px;   \">Order: ".concat(deliver).trim().concat("</h5>"));
+//                   }
+
+                  
+                    //EditorPanePrinter editorPanePrinter = new EditorPanePrinter(pane, new Paper(), new Insets(18,0,0,18));
+                   //HashPrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
+                  //attr.add(new MediaPrintableArea(0f, 0f, pane.getWidth()/72f, pane.getHeight()/72f, MediaPrintableArea.INCH));       
+                  //PrinterJob job = PrinterJob.getPrinterJob();    
+                 //job.setPrintService(ps);
+                 //job.setPrintable(this);
+                //job.setJobName(jobName);
+
+                //  HashPrintRequestAttributeSet attr =new HashPrintRequestAttributeSet();
+              // attr.add(new MediaPrintableArea(0f,0f,getWidth()/72f, getHeight()/72f, MediaPrintableArea.INCH));
 
 
 
+
+  
 
     
 }
